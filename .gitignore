@@ -1,1 +1,3 @@
 *.pyc
+neo4j
+db.sqlite3
