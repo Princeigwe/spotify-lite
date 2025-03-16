@@ -1,0 +1,38 @@
+version: '3'
+
+services:
+  
+  neo4j-aura-db:
+    container_name: neo4j-aura-db
+    image: neo4j:latest
+    volumes:
+      - ./neo4j/data:/data
+      - ./neo4j/logs:/logs
+      - ./neo4j/plugins:/plugins
+      - ./neo4j/conf:/conf
+    environment:
+      NEO4J_AUTH: neo4j/${NEO_4J_AURA_DB_PASSWORD}
+      dbms.connector.bolt.listen_address: 0.0.0.0:7687
+    ports:
+      - "7474:7474"
+      - "7687:7687"
+    restart: always
+
+  
+  api-service:
+    build:
+      context: .
+    container_name: api-service
+    restart: on-failure
+    env_file:
+      - .env
+    develop:
+      watch:
+        - action: sync
+          path: .
+          target: /code/
+    volumes: 
+      - .:/code
+    ports:
+      - 8000:8000
+  
