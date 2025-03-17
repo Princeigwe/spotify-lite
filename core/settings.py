@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+import os
+from neomodel import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -27,7 +29,10 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["0.0.0.0"]
 
+NEO_4J_DB_PASSWORD = os.environ.get('NEO4J_DB_PASSWORD')
+NEO_4J_AURA_DB_HOST = os.environ.get('NEO_4J_AURA_DB_HOST')
 
+config.DATABASE_URL = f'bolt://neo4j:{NEO_4J_DB_PASSWORD}@{NEO_4J_AURA_DB_HOST}'
 # Application definition
 
 INSTALLED_APPS = [
@@ -37,6 +42,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    #3rd party apps
+    'django_neomodel',
 ]
 
 MIDDLEWARE = [
