@@ -14,7 +14,7 @@ class Artist(neomodel.StructuredNode):
     name = neomodel.StringProperty(unique_index=True, required=True)
     age = neomodel.IntegerProperty()
     is_producer = neomodel.BooleanProperty(default=False)
-    place = neomodel.StringProperty()
+    place_of_birth = neomodel.StringProperty()
     website = neomodel.StringProperty()
     followers = neomodel.IntegerProperty()
 
