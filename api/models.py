@@ -7,7 +7,7 @@ import pytz
 class Genre(neomodel.StructuredNode):
     name = neomodel.StringProperty(unique_index=True, required=True)
     
-    track = neomodel.RelationshipTo('Track', 'HAS_TRACK')
+    has_track = neomodel.RelationshipTo('Track', 'HAS_TRACK')
     
 
 class Artist(neomodel.StructuredNode):

@@ -38,6 +38,16 @@ class TrackSerializer(serializers.Serializer):
     return Track(**validated_data).save()
 
 
+class AlbumTrackSerializer(serializers.Serializer):
+  title = serializers.CharField(max_length=100)
+  length = serializers.IntegerField()
+  album_name = serializers.CharField()
+  genre_name = serializers.CharField()
+
+  def create(self, validated_data):
+    return Track(**validated_data).save()
+
+
 class CustomerSerializer(serializers.Serializer):
   name = serializers.CharField(max_length=100)
   age = serializers.IntegerField()
