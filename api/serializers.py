@@ -44,9 +44,9 @@ class TrackSerializer(serializers.Serializer):
 
 class AlbumTrackSerializer(serializers.Serializer):
   title = serializers.CharField(max_length=100)
-  length = serializers.IntegerField()
-  album_name = serializers.CharField()
-  genre_name = serializers.CharField()
+  length = serializers.IntegerField(required=False)
+  album_name = serializers.CharField(required=False)
+  genre_name = serializers.CharField(required=False)
 
   def create(self, validated_data):
     return Track(**validated_data).save()

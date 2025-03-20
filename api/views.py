@@ -81,6 +81,24 @@ class AlbumTrackList(APIView):
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+class GenreTrackView(APIView):
+  def put(self, request, genre_name, title):
+    serializer = AlbumTrackSerializer(data = request.data)
+    if serializer.is_valid():
+      try:
+        genre = Genre.nodes.get(name=genre_name)
+        genre.name = serializer.validated_data['genre_name']
+        genre.save()
+
+        track = Track.nodes.get(title=title)
+        track.title = serializer.validated_data['title']
+        track.save()
+        return Response(serializer.data, status=status.HTTP_200_OK)
+      except DoesNotExist as e:
+        return Response({"error": f"{e}"}, status=status.HTTP_404_NOT_FOUND)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
 class TrackList(APIView):
   def get(self, request):
     tracks = Track.nodes.all()
