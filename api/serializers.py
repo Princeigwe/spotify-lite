@@ -32,7 +32,11 @@ class AlbumReleaseSerializer(serializers.Serializer):
 
 class TrackSerializer(serializers.Serializer):
   title = serializers.CharField(max_length=100)
-  length = serializers.IntegerField()
+  length = serializers.IntegerField(max_value=4)
+  producer_name = serializers.CharField(max_length=100)
+  singer_name = serializers.CharField(max_length=100)
+  album_name = serializers.CharField(max_length=100)
+  genre_name = serializers.CharField(max_length=20)
 
   def create(self, validated_data):
     return Track(**validated_data).save()

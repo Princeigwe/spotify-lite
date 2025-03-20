@@ -6,4 +6,5 @@ urlpatterns = [
   path("artists/", views.ArtistList.as_view()),
   path("albums/", views.AlbumReleaseList.as_view()),
   path("albums/tracks/", views.AlbumTrackList.as_view()),
+  path("tracks/", views.TrackList.as_view())
 ]
