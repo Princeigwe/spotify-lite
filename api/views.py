@@ -4,7 +4,7 @@ from .serializers import GenreSerializer, ArtistSerializer, AlbumReleaseSerializ
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from neomodel import DoesNotExist
+from neomodel import DoesNotExist, db
 
 
 
@@ -106,4 +106,10 @@ class TrackList(APIView):
       except DoesNotExist as e:
         return Response({"error": f"{e}"}, status=status.HTTP_404_NOT_FOUND)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    
+
+
+class TrackView(APIView):
+  def delete(self, request, title):
+    query = " MATCH (track: Track{ title: $title }) DETACH DELETE track; "
+    db.cypher_query(query=query, params={"title":title} )
+    return Response(status=status.HTTP_204_NO_CONTENT)
