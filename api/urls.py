@@ -3,5 +3,6 @@ from . import views
 
 urlpatterns = [
   path("genres/", views.GenreList.as_view()),
-  path("artists/", views.ArtistList.as_view())
+  path("artists/", views.ArtistList.as_view()),
+  path("albums/", views.AlbumReleaseList.as_view())
 ]

@@ -12,20 +12,23 @@ class ArtistSerializer(serializers.Serializer):
   age = serializers.IntegerField()
   is_producer = serializers.BooleanField()
   place_of_birth = serializers.CharField(max_length=100)
-  website = serializers.CharField(max_length=100, required=False)
+  website = serializers.URLField(max_length=100, required=False)
   followers = serializers.IntegerField(required=False)
 
   def create(self, validated_data):
     return Artist(**validated_data).save()
 
 
-class AlbumSerializer(serializers.Serializer):
+
+class AlbumReleaseSerializer(serializers.Serializer):
   name = serializers.CharField(max_length=100) 
   release_date = serializers.DateTimeField()
   cover_art = serializers.URLField(max_length=100)
+  producer_name = serializers.CharField(max_length=100)
 
   def create(self, validated_data):
     return Album(**validated_data).save()
+
 
 class TrackSerializer(serializers.Serializer):
   title = serializers.CharField(max_length=100)
